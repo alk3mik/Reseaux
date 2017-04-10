@@ -1,9 +1,13 @@
 var xhr = new XMLHttpRequest();
+var url = "http://localhost:3000/posts";
 
+/*
+	The following lines are for POST
+*/
 if (xhr) {
 
 //	xhr.open('POST','http://dev.domain.us/API/v02/json/V02');
-	xhr.open('POST','http://localhost:3000/posts');
+	xhr.open('POST', url);
 
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
@@ -16,16 +20,44 @@ if (xhr) {
 
 	});
 
+  	xhr.send(article);
+}
+
 /*
-	var jsonStr = JSON.stringify({
-
-    			  name: 'John Frog',
-
-    			  address: '8 rue des Nénuphars, 45200 La Mare'
-
-  	});
+	The following lines are for GET
 */
 
-  	xhr.send(article);
+function displayArticle() {
+	
+	if (xhr) {
+	
+		xhr.onreadystatechange = function() {
+
+    		if (xhr.readyState === XMLHttpRequest.DONE) {
+
+    			if (xhr.status === 200) {
+
+// The JavaScript function JSON.parse(text) can be used to convert a JSON text into a JavaScript object:
+
+        			var data = JSON.parse(xhr.responseText);
+//        			alert(data);
+//        			console.log(data);
+					document.getElementById("demo").innerHTML = "AUTHOR: " + data.author + "<br>" + "TITLE: " + data.title + "<br>" + 
+																"CONTENT: " + data.content + "<br>" + "TAGS: " + data.tags + "<br>" +
+																"ID: " + data.id + "<br>";
+
+		      	} else {
+
+    		    	alert("Une erreur s'est produite.");
+
+      			}
+    		}
+
+		};
+
+		xhr.open('GET', url + "/79");   
+		xhr.send();
+
+	}
 
 }

@@ -17,3 +17,10 @@ html, body {
 h1 {
 	text-align: center;
 }
+
+/* Classes definition */
+
+.buttons {
+	border: 5px solid #000000;
+	cursor: pointer;
+}
